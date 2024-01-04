@@ -1,3 +1,4 @@
+
 # Commerce - Django
 Experimental - Web development using Django framework
 
@@ -36,24 +37,24 @@ Experimental - Web development using Django framework
    > brew install nginx
 
 2a. start nginx manually
-   > nginx
+    > nginx
 
 2b. start nginx automatically ( install as service)
-   > brew services start nginx
+    > brew services start nginx
 
 3. Verify nginx instalation, browse http://localhost
 
 4. Configuration file path "/usr/local/etc/nginx/"
    Default webroot path "/usr/local/var/www/"
-5a. stop nginx manually
-   > nginx -s stop
 
-5b. stop nginx (if installed as service)
-   > brew services stop nginx
+5a. Stop nginx manually
+    > nginx -s stop
 
-6.  Restart nginx
+5b. Stop nginx (if installed as service)
+    > brew services stop nginx
+
+6. Restart nginx
    > brew services restart nginx  or restart nginx
-
 
 
 
@@ -61,10 +62,9 @@ Experimental - Web development using Django framework
 # Configure nginx as file server
 
 1. Create a local nginx local configuration file
-  > mkdir /Users/dummyuser/myfolder/nginx.conf
+   > mkdir /Users/dummyuser/myfolder/nginx.conf
 
-
-  sample config:
+  ```sample config:
 
 server {
   listen 8181;
@@ -95,11 +95,15 @@ server {
 
 
 }
+```
 
 
 
 3. Include your local nginx.conf to /usr/local/etc/nginx/nginx.conf
 
+
+
+```
 .
 .
 .
@@ -110,6 +114,8 @@ http {
 .
 .
 .
+
+```
 
 
 
