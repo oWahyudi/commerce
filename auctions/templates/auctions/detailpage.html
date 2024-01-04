@@ -1,0 +1,181 @@
+{% extends "auctions/layout.html" %}
+{% load static %}
+
+{% block body %}
+    {% if form.page_message_error %}
+        <div class="error">{{ form.page_message_error }}&nbsp;</div>
+    {% endif %}
+
+    {% if  not auction %}
+        <div class="bordered-s1">
+            <div class="vertical-flex-container field notfound">
+                Looks like someone used a magic wand to win this auction. Abracadabra – and poof, it's gone!<br><br>
+                Don't worry, there are plenty of other auctions waiting for your bid! Let's head to the auction list and pick a winner. 🚀🌟
+            </div>
+        </div>
+    {% endif %}
+
+    {% if form.non_field_errors %}
+        <div class="error">{{ form.non_field_errors }}&nbsp;</div><br>
+    {% else %}
+        {% if form.errors %}
+            <div class="error">{{ form.errors }}&nbsp;</div>
+        {% endif %}
+    {% endif %}
+
+    <h2>Listing: {{ auction.title }}</h2>
+
+    {% if request.user.is_authenticated %}
+        {% if not auction.isactive and auction.bidder == request.user  %}
+            <span class="field greeting">Congratulations, you are the successful bidder!</span><br>
+        {% endif %}
+
+        {%if not auction.isactive and auction.bidder != request.user %}
+            <span class="field greeting">This auction is currently closed. Thank you for your participation!</span><br>
+        {% endif %}
+
+    {% endif %}
+
+
+    {% if auction.isactive  and request.user.is_authenticated  and watchlist %}
+        <div class="field watchlist" id="watchlist">Watchlist</div>
+    {% endif %}
+    
+    <br>
+    <form id="id_form" method="post" enctype="multipart/form-data">
+        {% csrf_token %}   
+        <div class="bordered-s1 icon-hand">
+            <div class="horizontal-flex-container">
+                <div class="box mr10">
+                    {% if auction.image %}
+                    <img class="image w500" src="http://localhost:8181/{{ auction.image.url }}" alt="{{ auction.title }}">
+                    {% else %}
+                    <img class="image w500" src="{% static 'auctions/images/noimage.png' %}" alt="No image available">
+                    {% endif %}  
+                </div>
+                <div class="box wmax">
+                    <div class="description">{{ auction.description }}</div><br> 
+                </div>
+            </div>
+
+            <div class="vspace h20"></div>
+
+            <div class="vertical-flex-container">
+                <div class="box w500">
+                    <div class="field price large">${{ auction.bid|default:auction.price }}</div> 
+                    {% if auction.isactive %}
+                        <div class="field bidcount">
+                            {% if bidcount == 1 %} 
+                                1 bid so far.&nbsp;
+                            {% elif bidcount > 1 %} 
+                                {{ bidcount }} bid(s) so far.&nbsp;
+                            {% endif %}
+                            {% if auction.bidder == request.user %}
+                            Your bid is the current bid.
+                            {% endif %}
+                        </div>
+                        {% if request.user.is_authenticated and auction.listedby != request.user %}
+                            <input type="number" name="{{ form.bidprice.name }}" class="form-control " id="id_{{ form.bidprice.name }}" step="any" placeholder="Bid" value="{{ form.bidprice.value }}">  
+                        {% endif %}
+                    {% endif %}            
+
+                    {% if auction.isactive and request.user.is_authenticated and auction.listedby != request.user %}
+                        <div class="vspace h8"></div>
+                        <input class="btn btn-primary" type="submit" value="Place Bid" id="id_btnsubmit"> 
+                    {% endif %}
+
+                    {% if auction.isactive and auction.listedby == request.user and request.user.is_authenticated %}
+                        <input class="btn btn-primary" type="button" value="Close Auction" id="id_btnclose" onclick="submitCloseAuction()">
+                    {% endif %}
+                    
+                    {% if auction.isactive and request.user.is_authenticated and not watchlist.id %}
+                        <input class="btn btn-primary" type="button" value="Add Watchlist" id="id_addwatchlist" onclick="submitAddWatchList()">
+                    {% endif %}
+                    <div class="vspace h15"></div>
+                    <div class="caption large">Details</div>
+                    <div class="field detailist">
+                        <ul>
+                            <li>Listed by: <a href="">{{ auction.listedby }}</a></li>
+                            <li>Category: {{ auction.categoryid|default:"No Category Listed" }}</li>
+                            {% if not auction.isactive and auction.bidder  %}
+                                <li>Winning Bidder: <a href="">{{ auction.bidder }}</a></li> 
+                            {% endif %}
+                            {% if auction.isactive and auction.bidder and auction.listedby == request.user   %}
+                            <li>Highest Bid Price by: <a href="">{{ auction.bidder }}</a></li> 
+                        {% endif %}
+                        </ul>
+                    </div> 
+                </div>
+                <!-- <div class="box box-max"> </div> -->
+            </div>
+        </div>
+
+        {% if user.is_authenticated and auction.isactive %}
+        <div class="bordered-s1">
+            <div class="vertical-flex-container">
+                <div class="box w500">
+                    <div class="caption large">Comments</div> 
+                    <div class="horizontal-flex-container">
+                        <input type="text" name="comments" class="form-control " id="id_comments" placeholder="Comments">
+                        <input class="btn btn-primary" type="button" value="Post Comment" id="id_postcomment" onclick="submitPostComments()">
+                    </div><br> 
+
+                    <div>
+                        {% if commentlist.count > 0 %}
+                            <ul>
+                                {% for comment in commentlist %}
+                                    <li><span class="caption smallgrey">{{ comment.postedat }}({{comment.userid}})</span> -  {{ comment.comment }}</li>    
+                                {% endfor %}
+                            </ul>
+                        {% endif %} 
+                    </div><br>
+
+                </div    
+            </div>
+        </div>
+        {% endif %}
+
+
+
+        <input type="hidden" name="actiontask" id="id_actiontask">
+    </form>
+
+    <script>
+        //Get the form element
+        var form = document.getElementById('id_form');
+
+        function submitAddWatchList() {
+            //Set the value of actiontask to watchlist
+            var actiontask = document.getElementById('id_actiontask');
+            actiontask.value = "watchlist";
+            form.submit();
+        }
+
+        function submitCloseAuction() {
+            //Set the value of actiontask to close
+            var actiontask = document.getElementById('id_actiontask');
+            actiontask.value = "closeauction";
+            form.submit();
+        }
+
+        function submitPostComments() {
+            //Set the value of actiontask to close
+            var actiontask = document.getElementById('id_actiontask');
+            actiontask.value = "postcomment";
+            //Get the comment input element
+            
+            var comments = document.getElementById('id_comments');
+            if (comments.value.trim() !== ""){
+                form.submit();
+            }
+                
+        }
+
+
+        
+
+    </script>
+
+   
+
+{% endblock %}

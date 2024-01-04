@@ -1,0 +1,37 @@
+{% extends "auctions/layout.html" %}
+{% load static %}
+
+{% block body %}
+
+    <h2>Category Listing</h2>
+    {% if not page_obj %}
+        <p><font class="caption emptylist">There is no category available.</font></p>
+    {%  endif %}
+
+    {% for record in page_obj  %}
+        <div class="bordered-s1 horizontal-flex-container icon-hand">
+            <div class="box w200 mr10 caption category-name">
+                <a href="{% url 'categorydetailpage' categoryid=record.id %}">{{ record.name }}</a>
+            </div>
+            
+        </div>
+      
+
+    {% endfor %}
+
+
+    <div class="flex-pages-container">
+        {% if page_obj.has_previous %}
+            <div onclick="GoToPage('/category','1')">|&lt;</div>
+            <div onclick="GoToPage('/category','{{ page_obj.previous_page_number }}')">&lt;</div>
+        {% endif %}
+        {% if page_obj|length > 0 %}
+            <span>{{ page_obj.number }} of  {{ page_obj.paginator.num_pages }}</span>
+        {% endif %}
+        {% if page_obj.has_next %}
+            <div onclick="GoToPage('/category','{{ page_obj.next_page_number }}')">&gt;</div>
+            <div onclick="GoToPage('/category','{{ page_obj.paginator.num_pages }}')">&gt;|</div>
+        {% endif %}
+    </div>
+
+{% endblock %}

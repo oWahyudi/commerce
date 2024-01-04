@@ -1,0 +1,26 @@
+{% extends "auctions/layout.html" %}
+{% load static %}
+
+{% block body %}
+
+    <h2>Create Listing</h2>
+
+    <div class="bordered-s1">
+        <div class="vertical-flex-container">
+            <div class="box mr10">
+                <form method="post" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <div class="form-group w70p">
+                     
+                        {{ form.as_div }}
+
+                    </div>   
+                    <input class="btn btn-primary" type="submit" value="Save">
+                </form>
+            </div>
+        </div>
+       
+    </div>
+
+
+{% endblock %}

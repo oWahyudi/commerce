@@ -1,0 +1,350 @@
+body {
+  padding: 10px;
+  font-family: 'Arial', sans-serif;
+}
+
+/* Styles for elements inside success or error */
+.success, .error {
+  border: 1px solid;
+  margin: 0px 0px 20px 0px; 
+  padding: 10px 10px 10px 50px;
+  background-repeat: no-repeat;
+  background-position: 10px center; 
+  border-radius: 4px;
+  font-size: 14px;
+}
+
+.success {
+  color: #4F8A10;
+  border-color: #DFF2BF;
+  background-color: #DFF2BF;
+  background-image: url('../images/successicon.png');
+}
+
+.error{
+  color: white;
+  border-color: red;
+  background-color: red;
+  background-image: url('../images/erroricon.png');
+}
+
+
+/* Styles for errorlist message */
+.errorlist {
+  margin: 0px;
+}
+
+.errorlist li {
+  list-style-type: square;
+  white-space: nowrap;
+}
+
+/* Styles for required labels */
+.required label::after {
+  content: ' *';
+  color: red;
+  font-weight: bold;
+}
+
+.required {
+  display: flex;
+}
+
+.required .errorlist {
+  color:red;
+  margin-top: 4px;
+  padding-top: 2px;
+  order: 1;
+}
+
+
+
+/* Styles for elements inside flex-container */
+.horizontal-flex-container{
+  display: flex;
+  flex-direction: row; 
+  overflow: hidden; 
+  margin: 0px;
+  padding: 0px;
+}
+
+.vertical-flex-container{
+  display: flex;
+  flex-direction: column; 
+  overflow: hidden; 
+  margin: 0px;
+  padding: 0px;
+}
+
+
+.bordered-s1 {
+  border-radius: 5px;
+  border: 1px solid #f1f1f1;
+  padding-top: 7px;
+  margin-bottom: 5px;
+  padding: 10px;
+  padding-left: 20px;
+  
+}
+
+.box {
+  margin:0px;
+  padding: 0px;
+  box-sizing: border-box;
+}
+
+.box.noshrink {
+  flex-shrink: 0;
+}
+
+
+.box.mr10 {
+  margin-right: 10px;
+}
+
+.box.wmax {
+  flex-grow: 1;
+}
+
+.box.w100 {
+  width: 100px;
+}
+
+.box.w200 {
+  width: 200px;
+}
+
+.box.w300 {
+  width: 300px;
+}
+
+.box.w400 {
+  width: 400px;
+}
+
+.box.w500 {
+  width: 500px;
+}
+
+.box.w600 {
+  width: 600px;
+}
+
+.box.w800 {
+  width: 800px;
+}
+
+.vspace {
+  flex-grow: 1;
+  margin: 0 px;
+  padding: 0px;
+}
+
+.vspace.h8 {
+  height: 8px;
+}
+
+.vspace.h15 {
+  height: 15px;
+}
+
+.vspace.h20 {
+  height: 20px;
+}
+
+
+.field {
+  color:black;
+}
+
+.field.price {
+  font-weight: bold;
+  margin-bottom: 15px;
+}
+
+.field.price.large {
+  font-size: 23px;
+}
+
+.field.bidcount {
+  font-size: 10px;
+}
+
+.field.notfound {
+  font-size: 20px;
+  color: gainsboro;
+}
+
+.field.detailist {
+  margin-bottom: 15px;
+}
+
+.field.greeting {
+  font-size: 26px;
+  font-weight: bold;
+  text-align: center;
+  margin-top: 20px;
+  color: #155724;
+
+}
+
+
+.field.watchlist {
+  background-color: gray;
+  color:white;
+  border: none;
+  border-radius: 3px;
+  font-size: 10px;
+  font-weight: bold;
+  margin : 0 0 1px 2px;
+  padding: 2px 4px 0 3px;
+  display: inline-block;  
+}
+
+
+
+.caption {
+  font-weight: normal;
+  margin-bottom: 15px;
+}
+
+.caption.large {
+  font-size: 23px;
+}
+
+.caption.smallgrey {
+  font-size: 12px;
+  color: grey;
+}
+
+.caption.emptylist {
+  font-size: 20px;
+  color: grey;
+}
+
+.caption.title {
+  font-weight: bold;
+  font-size: 20px;
+  margin-bottom: 8px;
+}
+
+.caption.price {
+  font-weight: bold;
+  margin-bottom: 15px;
+}
+ 
+.caption.description {
+  font-size: 15px;
+  width:80%
+}
+
+.caption.created {
+  margin-top: 15px;
+  font-size: 12px;
+  color: grey;
+}
+
+.caption.category-name {
+  font-size: 20px;
+  margin-bottom: 0;
+}
+
+
+.icon-hand:hover {
+  cursor: pointer;
+} 
+
+
+/* Styles for image elements */
+.image {
+  margin: 0px;
+  padding: 0px;
+  max-width: 100%;
+  height: auto;
+}
+
+.image.w200 {
+  width: 200px;
+}
+.image.w500 {
+  width: 500px;
+}
+
+
+
+/* Styles for elements inside flex-pages-container */
+.flex-pages-container {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+/* Styles for <div> child elements inside flex-pages-container */
+.flex-pages-container > div {
+  display: flex; 
+  align-items: center;
+  justify-content: center;
+  width: 50px;
+  height: 50px;
+  margin: 0 5px;
+  background-color: rgba(128, 128, 128, 0.3);
+  color: white;
+  border-radius: 3px;
+  cursor: pointer;
+  font-size: 20px;
+}
+
+.flex-pages-container span {
+  font-size: 20px;
+  padding-top: 10px;
+  padding-left: 10px;
+  padding-right: 10px;
+  color: gray;
+}
+
+
+
+
+
+.form-group {
+  width: 100%;
+}
+
+.form-group.w70p {
+  width: 70%;
+}
+
+/* Styles for <div> child element inside form-group */
+.form-group div  {
+  display: flex;
+  flex-wrap: nowrap;
+}
+
+/* Styles for <label> child element inside <div> */
+.form-group  div > label {
+  width: 15%; 
+  margin-right: 20px;
+  margin-top: 5px;
+  white-space: nowrap;
+}
+
+/* Styles for <label> child element inside <div> */
+.form-group div.label-130px > label {
+  width: 130px;
+}
+.form-group div.label-100px > label {
+  width: 100px;
+}
+
+/* Styles for <input,select,textarea> child element inside <div> */
+.form-group  div > input, 
+.form-group  div > select,
+.form-group  div > textarea {
+  width: 50%; 
+  padding: 5px;
+  margin-top: 5px;
+}
+
+
+

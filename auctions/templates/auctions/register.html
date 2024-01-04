@@ -1,0 +1,58 @@
+{% extends "auctions/layout.html" %}
+{% load static %}
+
+{% block body %}
+
+    <h2>Register</h2>
+
+    {% if form.non_field_errors %}
+        <div class="error">{{ form.non_field_errors }} </div><br>
+    {% else %}
+        {% if form.errors %}
+            <div class="error">{{ form.errors }}</div>
+        {% endif %}
+    {% endif %}
+
+    <div class="bordered-s1">
+        <div class="box w800">
+
+            <form action="{% url 'register' %}" method="post">
+                {% csrf_token %}
+                <div class="form-group">
+                    <div class="label-130px">
+                        <label for="id_{{ form.first_name.name }}">First Name</label>
+                        <input type="text" name="{{ form.first_name.name }}" class="form-control"  id="id_{{ form.first_name.name }}" value="{{ form.first_name.value|default:'' }}">
+                    </div>
+                    <div class="label-130px">
+                        <label for="id_{{ form.last_name.name }}">Last Name</label>
+                        <input type="text" name="{{ form.last_name.name }}" class="form-control"  id="id_{{ form.last_name.name }}" value="{{ form.last_name.value|default:'' }}">
+                    </div>
+                    <div class="label-130px">
+                        <label for="id_{{ form.username.name }}">Username</label>
+                        <input type="text" name="{{ form.username.name }}" class="form-control"  id="id_{{ form.username.name }}" value="{{ form.username.value|default:'' }}">
+                    </div>
+                    <div class="label-130px">
+                        <label for="id_{{ form.email.name }}">Email Address</label>
+                        <input type="email" name="{{ form.email.name }}" class="form-control"  id="id_{{ form.email.name }}" value="{{ form.email.value|default:'' }}">
+                    </div>
+                    <div class="label-130px">
+                        <label for="id_password">Password</label>
+                        <input type="password" name="password" class="form-control"  id="id_password">
+                    </div>
+                    <div class="label-130px">
+                        <label for="id_confirmation">Confirm Password</label>
+                        <input type="password" name="confirmation" class="form-control"  id="id_confirmation">
+                    </div>                       
+                </div>
+                
+                <input class="btn btn-primary" type="submit" value="Register">
+            </form><br>
+            <div>Already have an account? <a href="{% url 'login' %}">Log In here.</a></div>
+            
+        </div>
+        
+    </div>
+
+  
+
+{% endblock %}
