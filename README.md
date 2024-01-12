@@ -2,6 +2,11 @@
 # Commerce - Django
 Experimental - Web development using Django framework
 
+> [!NOTE]
+> Excercise:  
+>   Model, ModelForm, ModelAdmin, ListView, Pagination, CSS Flex  
+>   SQLlite, Nginx 
+
 
 1. Create virtual environment
    >python3 -m venv django-env
