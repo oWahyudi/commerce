@@ -3,7 +3,7 @@
 Experimental - Web development using Django framework
 
 > [!NOTE]
-> Excercise:  
+> Exercise:  
 >   Model, ModelForm, ModelAdmin, ListView, Pagination, CSS Flex  
 >   SQLlite, Nginx 
 
